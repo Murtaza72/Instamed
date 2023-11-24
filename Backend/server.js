@@ -5,6 +5,13 @@ const connectDatabase = require('./config/database');
 
 dotenv.config({ path: 'backend/config/config.env' });
 
+process.on('uncaughtException', error => {
+    console.log(`Error: ${error.message}`);
+    console.log('Shutting down the server due to Uncaught Exception.');
+    server.close();
+    process.exit(1);
+});
+
 connectDatabase();
 
 const server = app.listen(process.env.PORT, () => {
@@ -13,7 +20,7 @@ const server = app.listen(process.env.PORT, () => {
 
 process.on('unhandledRejection', error => {
     console.log(`Error: ${error.message}`);
-    console.log('Shutting down the server');
+    console.log('Shutting down the server due to Unhandled Rejection.');
     server.close();
     process.exit(1);
 });

@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const connectDatabase = () => {
     mongoose
         .connect(
-            `mongodb+srv://${process.env.MONGO_USERID}:${process.env.MONGO_PASSWORD}@instamed.viyjmtt.mongodb.net/`
+            `mongodb+srv://${process.env.MONGO_USERID}:${process.env.MONGO_PASSWORD}@instamed.viyjmtt.mongodb.net/Instamed`
         )
         .then(data => {
             console.log(`Connected to ${data.connection.host}`);
