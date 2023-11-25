@@ -7,12 +7,13 @@ const sendToken = require('../utils/jwtToken');
 const sendEmail = require('../utils/sendEmail');
 
 exports.registerUser = catchAsyncError(async (req, res, next) => {
-    const { name, email, password } = req.body;
+    const { name, email, password, role } = req.body;
 
     const user = await User.create({
         name,
         email,
         password,
+        role,
     });
 
     const token = user.getJWTToken();
