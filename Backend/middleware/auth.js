@@ -6,8 +6,6 @@ const User = require('../model/user');
 exports.isAuthenticated = catchAsyncError(async (req, res, next) => {
     const { token } = req.cookies;
 
-    console.log(token);
-
     if (token.includes('null')) {
         return next(
             new ErrorHandler('You need to be logged in to do this', 401)
@@ -20,3 +18,18 @@ exports.isAuthenticated = catchAsyncError(async (req, res, next) => {
 
     next();
 });
+
+exports.isAuthorized = (...roles) => {
+    return (req, res, next) => {
+        if (!roles.includes(req.user.role)) {
+            return next(
+                new ErrorHandler(
+                    `Your role(${req.user.role}) does not qualify for this action`,
+                    403
+                )
+            );
+        }
+
+        next();
+    };
+};
