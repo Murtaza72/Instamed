@@ -1,7 +1,7 @@
 const catchAsyncError = require('../middleware/catchAsyncError');
 const ErrorHandler = require('../utils/errorHandler');
 
-const Product = require('../model/product');
+const Product = require('../models/product');
 
 exports.createProduct = catchAsyncError(async (req, res, next) => {
     const product = await Product.create(req.body);
